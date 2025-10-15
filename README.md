@@ -1,109 +1,54 @@
-# Python Recommender system
-A simple recommender system in Python.
+# Attention
+## There is no guarantee that these results are correct. 
+### Use with your own responsibility
 
-## Implemented Algorithms
+These are just a set samples that might not be correct at all.
 
-- Implemented algorithms are:
-  - ItemKNN
-  - UserKNN
-  - ItemAverage
-  - UserAverage
-  - UserItemAverage
-  - GlobalAverage
-
-- Similarity meseaurs:
-  - Item based nearest neighbor
-    - [Cosine](https://en.wikipedia.org/wiki/Cosine_similarity)
-  - User based nearest neighbor
-    - [Pearson](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)
-
-## Test
-The dataset comes in 5 folds. So without chaning how it looks, we ues it to perform a 5-fold cross-validation.
-
-- To meseaure the quality of the predictions we use:
-  - Prediction Coverage
-  - [Mean absolute error MAE](https://en.wikipedia.org/wiki/Mean_absolute_error)
-
-### Results
-To see a set of results on a run check [here](https://github.com/ravexina/python-recommender-system/tree/master/results).
-
-# How to use it:
-
-## Download
-
-Clone the project using:
-
-```bash
-git clone https://github.com/ravexina/python-recommender-system.git
-```
-
-Or downloading it from [here](https://github.com/ravexina/python-recommender-system/archive/master.zip): 
-
-```bash
-wget https://github.com/ravexina/python-recommender-system/archive/master.zip
-```
-
-
-## Dataset
-
-I wrote this specifically to work with movielens 100k dataset. You can get it from here:  
-http://files.grouplens.org/datasets/movielens/ml-100k.zip
-
-Here is another link from archive.org if the link above does not work for you or it is unavailable:  
-https://web.archive.org/web/*/http://files.grouplens.org/datasets/movielens/ml-100k.zip
-
-Extract the content of `ml-100k` within the zip file into the `./dataset` directory. Install the necessary dependencies and you are good to go.
-
-## Dependencies
-The libraries I've used in this project are mostly embedded in Python. The only ones you have to install are:
-
-- Numpy
-- Pandas
-
-Install Pandas and Numpy will be installed as a dependency of Pandas:
-
-**Using pip**
 
 ```
-pip install --user pandas
+Average of all algorithms:
+
+         Algorithm       MAE  Prediction Coverage
+0    GlobalAverage  0.944728               99.997
+1      UserAverage  0.836185               99.997
+2      ItemAverage  0.816297               99.833
+3  UserItemAverage  0.794564               99.833
+4          UserKNN  0.740106               99.553
+5          ItemKNN  0.831156               99.833
+
+ ------------------------------------------------------------
+
+Average of all algorithms on different folds:
+
+          Algorithm  fold_id    MAE       PC
+0     GlobalAverage        1  0.968  100.000
+1     GlobalAverage        2  0.949  100.000
+2     GlobalAverage        3  0.931  100.000
+3     GlobalAverage        4  0.936  100.000
+4     GlobalAverage        5  0.940   99.985
+5       UserAverage        1  0.850  100.000
+6       UserAverage        2  0.838  100.000
+7       UserAverage        3  0.827  100.000
+8       UserAverage        4  0.831  100.000
+9       UserAverage        5  0.835   99.985
+10      ItemAverage        1  0.826   99.840
+11      ItemAverage        2  0.819   99.820
+12      ItemAverage        3  0.810   99.820
+13      ItemAverage        4  0.810   99.865
+14      ItemAverage        5  0.815   99.820
+15  UserItemAverage        1  0.808   99.840
+16  UserItemAverage        2  0.797   99.820
+17  UserItemAverage        3  0.786   99.820
+18  UserItemAverage        4  0.788   99.865
+19  UserItemAverage        5  0.794   99.820
+20          UserKNN        1  0.749   99.700
+21          UserKNN        2  0.740   99.720
+22          UserKNN        3  0.737   99.695
+23          UserKNN        4  0.735   99.535
+24          UserKNN        5  0.740   99.115
+25          ItemKNN        1  0.847   99.840
+26          ItemKNN        2  0.834   99.820
+27          ItemKNN        3  0.818   99.820
+28          ItemKNN        4  0.826   99.865
+29          ItemKNN        5  0.830   99.820
 ```
-
-**Using pipenv**
-
-```
-pipenv install pandas
-```
-
-## Run the project
-
-Run the `main.py` and you should start getting the results.
-
-```
-python3 main.py
-```
-
-or
-
-```
-pipenv run python3 main.py
-```
-
-# Improve the runtime
-
-As you might know, similiraty matrices takes some to calculate. Once you run the project it stores calculated matrices in form of pickles in `./pickles` directory.
-
-In the file `Algorithms/ItemKNN.py` and `Algorithms/UserKNN.py` there are two lines, which you can set an argument named `load_matrices` to `true` so next time you run the project it does not tries to recalculate the similarity matrices and uses the old one.
-
-```python
-# UserKNN
-cosine = Cosine(self.ratings, load_matrices=False, save_matrices=True, fold_id=self.fold_id)
-```
-
-```python
-# ItemKNN.py
-pearson = Pearson(self.ratings, load_matrices=False, save_matrices=True, fold_id=self.fold_id)
-```
-
-## Download the pre-calculated pickles
-
-Will be added soon.
